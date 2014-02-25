@@ -1,6 +1,6 @@
 # Patchwork
 
-A simple framework for creating a fully responsive and dynamic media grid in the browser.
+A simple framework for creating a fully responsive and dynamic media grid in the browser. Visit the [site](./index.html) for examples.
 
 ## What's that mean?
 
@@ -39,6 +39,12 @@ And boom - Patchwork. Depending on your setting, you might get something like th
   </div>
 </div>
 ```
+
+## Examples
+
+[Full Patchwork](./examples/full_patchwork.html)
+[Nested Patchwork](./examples/nested_patchwork.html)
+[Patch Size](./examples/patch_size.html)
 
 ## Patchwork is smart
 
@@ -95,9 +101,10 @@ Or, setting via data-attributes:
 
 * Patchwork begins to hit bugs and slow down when the patch target sizes are set below ```25px```. This isn't really the intended application, and ideally, most installs should keep the target sizes above ```50px``` each.
 
+* ```<!DOCTYPE html>``` needs to be declared or patch sizing refresh might be off.
+
 ## Todo
 
-* Add an examples file
 * Take in more data attribute args
 * Work on Patchwork Toolbox for quick, common styles
 

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Nested Patchwork Example</title>
+  <style type="text/css">
+    body{
+      padding: 0px;
+      margin: 0px;
+    }
+    #patchwork-container{
+      width: 700px;
+      height: 300px;
+      margin: 100px auto;
+    }
+    .patch:nth-child(odd){
+      background-color: #e67e22;
+    }
+    .patch:nth-child(even){
+      background-color: #d35400;
+    }
+    .patch:hover{
+      background-color: #c0392b;
+    }
+  </style>
+</head>
+<body>
+
+  <div id='patchwork-container'>
+    <div id='patchwork'></div>
+  </div>
+
+<script src='../js/libs/jquery-1.11.0.js'></script>
+<script src='../js/patchwork.js'></script>
+</body>
+</html>

@@ -1,16 +1,57 @@
 body{
   padding: 0px;
   margin: 0px;
+  text-align: center;
+  color: #543729;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  background-color: #ffcc2f;
 }
 
-.patch{
-  /*outline: 1px solid black;*/
+#header{
+  margin: 40px;
+  margin-bottom: 60px;
 }
 
-.patch:nth-child(odd){
-  background-color: #2980b9;
+h1{
+  margin: 30px 0;
+  font-size: 100px;
+  color: #ef5734;
 }
 
-.patch:nth-child(even){
-  background-color: #e74c3c;
+h3{
+  padding-bottom: 30px;
+}
+
+a.button{
+  color: #fff;
+  padding: 20px;
+  font-size: 15px;
+  text-decoration: none;
+  border-radius: 5px;
+  background-color: #2baf2b;
+}
+
+a.button:hover{
+  background-color: #3bbf3b;
+  cursor: pointer;
+}
+
+#patchwork-container{
+  height: 200px;
+}
+
+.patch:nth-child(4n+1){
+  background-color: #ffcc2f; /*yellow*/
+}
+.patch:nth-child(4n+2){
+  background-color: #543729; /*brown*/
+}
+.patch:nth-child(4n+3){
+  background-color: #2baf2b; /*green*/
+}
+.patch:nth-child(4n+4){
+  background-color: #ef5734; /*red*/
+}
+.patch:hover{
+  background-color: #543729;
 }
