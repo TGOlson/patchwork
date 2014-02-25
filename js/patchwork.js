@@ -14,13 +14,14 @@ var Patchwork = {
 
   // set targetPatchSize to target a goal size for patches
   targetPatchSize: {
-    X: 200,
-    Y: 200
+    X: 100,
+    Y: 100
   },
 
   init: function(){
     this.$patchwork = $('#patchwork')
     this.setParent()
+    this.checkForTargetSizeData()
     this.calculateProperties()
     this.setPatchworkDimensions()
     this.insertPatches()
@@ -30,6 +31,11 @@ var Patchwork = {
     this.$parent = this.$patchwork.parent()
     this.$parent.css('overflow', 'hidden')
     if( this.$parent.html() == $('body').html() ){ this.$parent = $(window) }
+  },
+
+  checkForTargetSizeData: function(){
+    this.targetPatchSize.X = this.$patchwork.data().targetSizeX || this.targetPatchSize.X
+    this.targetPatchSize.Y = this.$patchwork.data().targetSizeY || this.targetPatchSize.Y
   },
 
   calculateProperties: function(){
@@ -62,14 +68,3 @@ var Patchwork = {
       'px; display:inline-block;"><span class="white-space-remover" style="font-size:0px;visibility:hidden">.</span></div>'
   }
 }
-
-
-// <style>
-// p {color: blue}
-// </style>
-
-// $(document).ready(function() {
-//     var $p = $("<p></p>").hide().appendTo("body");
-//     alert($p.css("color"));
-//     $p.remove();
-// });

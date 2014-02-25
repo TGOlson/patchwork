@@ -10,8 +10,11 @@ Standard responsive grids are great for lots of things, but what if you want to 
 
 Simply import the JavaScript:
 
+(and jQuery - Patchwork heavily depends on it)
+
 ```
-stylesheet
+<script src='js/libs/jquery-1.11.0.js'></script>
+<script src='js/patchwork.js'></script>
 ```
 
 Then add the ```patchwork``` id to a div.
@@ -73,8 +76,8 @@ Changing in the JavaScript file:
 var Patchwork = {
   ...
   targetPatchSize: {
-    X: 200,
-    Y: 200
+    X: 100,
+    Y: 100
   },
   ...
 }
@@ -82,6 +85,15 @@ var Patchwork = {
 
 Or, setting via data-attributes:
 
+```html
+<div id='patchwork' data-target-size-x='100' data-target-size-y='100'></div>
 ```
-set
-```
+
+## Important things to know
+
+* Because of the [white space added](http://davidwalsh.name/remove-whitespace-inline-block) by the ```inline-block``` styling, each patch receives a small text character (a period), which is set to a ```font-size``` of 0 and made invisible.
+
+* ```overflow``` is automatically set to ```hidden``` on the parent element for spacing issues. If you want overflow, manually add it back in and test to see if there are spacing issues.
+
+* Patchwork begins to hit bugs and slow down when the patch target sizes are set below ```25px```. This isn't really the intended application, and ideally, most installs should keep the target sizes above ```50px``` each.
+
