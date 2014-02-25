@@ -1,6 +1,6 @@
 # Patchwork
 
-A simple framework for creating a fully responsive and dynamic media grid in the browser. [Visit the site](http://tgolson.com/patchwork/) for examples.
+A JavaScript library for creating a dynamic and responsive media grid in the browser. [Visit the site](http://tgolson.com/patchwork/) for a sample.
 
 ## What's that mean?
 
@@ -8,7 +8,7 @@ Standard responsive grids are great for lots of things, but what if you want to 
 
 ## Get Started
 
-Simply import the Patchwork JavaScript file (and jQuery - Patchwork heavily depends on it).
+First [download](http://tgolson.github.io/patchwork/js/patchwork.js) the Patchwork JavaScript file. Then, place the file into your project and link it to your HTML pages (make sure to include jQuery - Patchwork heavily depends on it).
 
 ```html
 <script src='js/libs/jquery-1.11.0.js'></script>
@@ -21,7 +21,7 @@ Then add the ```patchwork``` id to a div.
 <div id='patchwork'></div>
 ```
 
-And boom - Patchwork. Depending on your setting, you might get something like this:
+And boom - Patchwork. Depending on your settings, you might get something like this:
 
 ```html
 <div id="patchwork" style="width: 1301px; height: 411px;">
@@ -42,11 +42,13 @@ And boom - Patchwork. Depending on your setting, you might get something like th
 
 ## Examples
 
-[Full Patchwork](http://tgolson.com/patchwork/examples/full_patchwork.html)
+All files are kept in the ```examples``` directory within this project. Refer to them for additional tips on syntax and styling.
 
-[Nested Patchwork](http://tgolson.com/patchwork/examples/nested_patchwork.html)
+[Full Patchwork](http://tgolson.com/patchwork/examples/full_patchwork.html) - An example of using Patchwork's default settings to fill up an entire page with patches.
 
-[Patch Size](http://tgolson.com/patchwork/examples/patch_size.html)
+[Nested Patchwork](http://tgolson.com/patchwork/examples/nested_patchwork.html) - An example of placing Patchwork into a container to limit it's size.
+
+[Patch Size](http://tgolson.com/patchwork/examples/patch_size.html) - An example of setting the target patch size properties for the patchwork.
 
 ## Patchwork is smart
 
@@ -107,6 +109,7 @@ Or, setting via data-attributes:
 
 ## Todo
 
+* Create more elaborate examples with SASS
 * Take in more data attribute args
 * Work on Patchwork Toolbox for quick, common styles
 

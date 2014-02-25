@@ -8,18 +8,22 @@ body{
 }
 
 #header{
-  margin: 40px;
-  margin-bottom: 60px;
+  margin: 40px 0 0;
 }
 
 h1{
-  margin: 30px 0;
+  margin: 20px 0;
   font-size: 100px;
   color: #ef5734;
 }
 
-h3{
-  padding-bottom: 30px;
+#tagline{
+  padding-bottom: 35px;
+}
+
+#download-link{
+  padding-top: 25px;
+  padding-bottom: 25px;
 }
 
 a.button{
@@ -39,7 +43,6 @@ a.button:hover{
 #patchwork-container{
   height: 200px;
 }
-
 .patch:nth-child(4n+1){
   background-color: #ffcc2f; /*yellow*/
 }
