@@ -8,11 +8,9 @@ Standard responsive grids are great for lots of things, but what if you want to 
 
 ## Get Started
 
-Simply import the JavaScript:
+Simply import the Patchwork JavaScript file (and jQuery - Patchwork heavily depends on it).
 
-(and jQuery - Patchwork heavily depends on it)
-
-```
+```html
 <script src='js/libs/jquery-1.11.0.js'></script>
 <script src='js/patchwork.js'></script>
 ```
@@ -44,7 +42,7 @@ And boom - Patchwork. Depending on your setting, you might get something like th
 
 ## Patchwork is smart
 
-Patchwork is useful because it takes a lot of worry out of the developer's hands. First, it looks for the ```div``` element with ```id='patchwork'```, then it assesses the parent element to see if it's being put into a wrapper. Then it looks at the desired patch sizes, and runs a calculation based on the current screen size to come up with patch sizes that will fill the entire screen with no remainder, while to staying close to the desired size.
+Patchwork is useful because it takes a lot of worry out of the developer's hands. First, it looks for the ```div``` element with ```id='patchwork'```, then it assesses the parent element to see if it's being put into a wrapper. Then it looks at the desired patch sizes, and runs a calculation based on the current screen size to come up with patch sizes that will fill the entire screen with no remainder, while staying close to the desired size.
 
 Oh ya, and it refreshes the calculations on screen resize. So what was once a 6 x 3 grid may change to a 3 x 3 grid if the browser if scaled or zoomed.
 
@@ -60,11 +58,11 @@ One of the most useful things about Patchwork is that is can easily be wrapped i
 
 Patchwork will look up at the parent element, and create itself with those dimensions, inside the parent element.
 
-What if you don't place it into a wrapper ```div```? Then Patchwork will default it's parent to the entire ```body``` element, taking up the full window. In many cases this is likely the desired outcome.
+What if you don't place it into a wrapper ```div```? Then Patchwork will default its parent to the entire ```body``` element, taking up the full window. In many cases this is likely the desired outcome.
 
 ## Customization
 
-Currently Patchwork is designed to be quick and simple, so not too many customizations are built in. In the future, a suite of quick addons will be released under the Patchwork Toolbox. That being said, here are a few ways to change the experience:
+Currently Patchwork is designed to be quick and simple, so not too many customizations are built in. Hopefully the remainder of the work can be done in CSS or SASS. In the future, a suite of quick addons will be released under Patchwork Toolbox. That being said, here are a few ways to change the experience:
 
 **Change the target patch size**
 
@@ -91,9 +89,22 @@ Or, setting via data-attributes:
 
 ## Important things to know
 
-* Because of the [white space added](http://davidwalsh.name/remove-whitespace-inline-block) by the ```inline-block``` styling, each patch receives a small text character (a period), which is set to a ```font-size``` of 0 and made invisible.
+* Because of the [white space added](http://davidwalsh.name/remove-whitespace-inline-block) by the ```inline-block``` styling, each patch receives a small text character (a period), which is set to a ```font-size``` of zero and made invisible.
 
 * ```overflow``` is automatically set to ```hidden``` on the parent element for spacing issues. If you want overflow, manually add it back in and test to see if there are spacing issues.
 
 * Patchwork begins to hit bugs and slow down when the patch target sizes are set below ```25px```. This isn't really the intended application, and ideally, most installs should keep the target sizes above ```50px``` each.
 
+## Todo
+
+* Add an examples file
+* Take in more data attribute args
+* Work on Patchwork Toolbox for quick, common styles
+
+## Contributing
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
