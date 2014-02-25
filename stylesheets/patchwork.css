@@ -1,0 +1,16 @@
+body{
+  padding: 0px;
+  margin: 0px;
+}
+
+.patch{
+  /*outline: 1px solid black;*/
+}
+
+.patch:nth-child(odd){
+  background-color: #2980b9;
+}
+
+.patch:nth-child(even){
+  background-color: #e74c3c;
+}
