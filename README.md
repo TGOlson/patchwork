@@ -1,6 +1,6 @@
 # Patchwork
 
-A simple framework for creating a fully responsive and dynamic media grid in the browser. Visit the [site](./index.html) for examples.
+A simple framework for creating a fully responsive and dynamic media grid in the browser. [Visit the site](http://tgolson.com/patchwork/) for examples.
 
 ## What's that mean?
 
@@ -42,9 +42,11 @@ And boom - Patchwork. Depending on your setting, you might get something like th
 
 ## Examples
 
-[Full Patchwork](./examples/full_patchwork.html)
-[Nested Patchwork](./examples/nested_patchwork.html)
-[Patch Size](./examples/patch_size.html)
+[Full Patchwork](http://tgolson.com/patchwork/examples/full_patchwork.html)
+
+[Nested Patchwork](http://tgolson.com/patchwork/examples/nested_patchwork.html)
+
+[Patch Size](http://tgolson.com/patchwork/examples/patch_size.html)
 
 ## Patchwork is smart
 
