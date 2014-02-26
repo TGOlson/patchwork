@@ -71,15 +71,18 @@ var Patchwork = {
   checkHeightForDecimalPixels: function(){
     if(this.patchSize.Y != parseInt(this.patchSize.Y)){
       var nearestInt = this.findNearestInt(this.dimensions.Y, this.patchCount.Y)
-      if(nearestInt != 0){ this.setHeightByNearestInt(nearestInt)
+      if(nearestInt != 0){
+        console.log('using nearestInt')
+        this.setHeightByNearestInt(nearestInt)
       } else {
+        console.log('using roundup')
         this.setHeightByRoundUp()
       }
     }
   },
 
   findNearestInt: function(num, div){
-    for(var i = 0; i < div / 2; i++){
+    for(var i = 0; i < div * 0.2; i++){
       if(num % (div - i) == 0){return div - i}
       if(num % (div + i) == 0){return div + i}
     }
