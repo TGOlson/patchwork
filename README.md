@@ -48,9 +48,9 @@ All files are kept in the ```examples``` directory within this project. Refer to
 
 [Nested Patchwork](http://tgolson.com/patchwork/examples/nested_patchwork.html) - An example of placing Patchwork into a container to limit it's size.
 
-[Patch Size](http://tgolson.com/patchwork/examples/patch_size.html) - An example of setting the target patch size properties for the patchwork.
+[Patch Size](http://tgolson.com/patchwork/examples/patch_size.html) - An example of setting the target patch size properties for the patchwork. NOTE: This example has a white border at the bottom in Chrome - possible bug fix needed.
 
-[Outlines](http://tgolson.com/patchwork/examples/outline.html) - An example of using the CSS ```outline``` property to add styling.
+[Outlines](http://tgolson.com/patchwork/examples/outline.html) - An example of using the CSS ```outline``` property to add styling. NOTE: This example has a white border at the bottom in Chrome - possible bug fix needed.
 
 ## Patchwork is smart
 
@@ -110,6 +110,8 @@ Or, setting via data-attributes:
 * ```<!DOCTYPE html>``` needs to be declared or patch sizing refresh might be off.
 
 * Using the CSS ```border``` property adds to the width of elements and will break the patch structure. Use ```outline``` instead - like [this](http://tgolson.com/patchwork/examples/outline.html)
+
+* Sometimes the patches will line up like columns, diminishing the graphical impact. Just know it's always a possibility when using a dynamic framework.
 
 ## Todo / Known Issues
 
