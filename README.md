@@ -131,8 +131,6 @@ An voila, the unwanted alignment transforms into a nice pattern:
 
 * Using the CSS ```border``` property adds to the width of elements and will break the patch structure. Use ```outline``` instead - like [this](http://tgolson.com/patchwork/examples/outline.html)
 
-* Sometimes the patches will line up like columns, diminishing the graphical impact. Just know it's always a possibility when using a dynamic framework.
-
 ## Todo / Known Issues
 
 * Chrome looks to add whitespace at the bottom of patchworks with smaller patches.
