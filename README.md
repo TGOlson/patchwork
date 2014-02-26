@@ -114,9 +114,9 @@ Luckily, Patchwork don't play that. Simply pass in the number of styles you plan
   <div id='patchwork' data-style-sets="4"></div>
 ```
 
-An voila, the not wanted aligned columns transforms into a nice pattern:
+An voila, the unwanted alignment transforms into a nice pattern:
 
-![Alignment](./img/align1.png)
+![Alignment](./img/align2.png)
 
 
 ## Important things to know
