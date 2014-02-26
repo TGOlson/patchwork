@@ -50,6 +50,8 @@ All files are kept in the ```examples``` directory within this project. Refer to
 
 [Patch Size](http://tgolson.com/patchwork/examples/patch_size.html) - An example of setting the target patch size properties for the patchwork.
 
+[Outlines](http://tgolson.com/patchwork/examples/outline.html) - An example of using the CSS ```outline``` property to add styling.
+
 ## Patchwork is smart
 
 Patchwork is useful because it takes a lot of worry out of the developer's hands. First, it looks for the ```div``` element with ```id='patchwork'```, then it assesses the parent element to see if it's being put into a wrapper. Then it looks at the desired patch sizes, and runs a calculation based on the current screen size to come up with patch sizes that will fill the entire screen with no remainder, while staying close to the desired size.
@@ -103,12 +105,15 @@ Or, setting via data-attributes:
 
 * ```overflow``` is automatically set to ```hidden``` on the parent element for spacing issues. If you want overflow, manually add it back in and test to see if there are spacing issues.
 
-* Patchwork begins to hit bugs and slow down when the patch target sizes are set below ```25px```. This isn't really the intended application, and ideally, most installs should keep the target sizes above ```50px``` each.
+* Patchwork begins to hit bugs and slow down when the patch target sizes are set below ```50px```. This isn't really the intended application, and ideally, most installs should keep the target sizes above ```50px``` each.
 
 * ```<!DOCTYPE html>``` needs to be declared or patch sizing refresh might be off.
 
-## Todo
+* Using the CSS ```border``` property adds to the width of elements and will break the patch structure. Use ```outline``` instead - like [this](http://tgolson.com/patchwork/examples/outline.html)
 
+## Todo / Known Issues
+
+* Chrome looks to add whitespace at the bottom of patchworks with smaller patches.
 * Create more elaborate examples with SASS
 * Take in more data attribute args
 * Work on Patchwork Toolbox for quick, common styles

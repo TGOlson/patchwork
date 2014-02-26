@@ -2,23 +2,31 @@ $(function(){
   Patchwork.init()
   var self = Patchwork;
   $(window).resize( Patchwork.init.bind(self) );
-  // $(window).resize( function(){ setTimeout( Patchwork.init.bind(self), 500) } );
 })
 
 var Patchwork = {
   $patchwork: null,
   $parent:    null,
-  dimensions: { X: null, Y: null },
-  patchSize:  { X: null, Y: null },
-  patchCount: { X: null, Y: null, total: null },
-
-  // set targetPatchSize to target a goal size for patches
+  dimensions: {
+    X: null,
+    Y: null
+  },
+  patchSize:  {
+    X: null,
+    Y: null
+  },
+  patchCount: {
+    X: null,
+    Y: null,
+    total: null
+  },
   targetPatchSize: {
     X: 100,
     Y: 100
   },
 
   init: function(){
+     console.log('moved')
     this.$patchwork = $('#patchwork')
     this.setParent()
     this.checkForTargetSizeData()
@@ -43,9 +51,15 @@ var Patchwork = {
     this.dimensions.Y     = this.$parent.height()
     this.patchCount.X     = Math.floor(this.dimensions.X / this.targetPatchSize.X)
     this.patchCount.Y     = Math.floor(this.dimensions.Y / this.targetPatchSize.Y)
+    this.checkIfPatchCountIsZero()
     this.patchSize.X      = this.dimensions.X / this.patchCount.X
     this.patchSize.Y      = this.dimensions.Y / this.patchCount.Y
     this.patchCount.total = this.patchCount.X * this.patchCount.Y
+  },
+
+  checkIfPatchCountIsZero: function(){
+    if(this.patchCount.X === 0){ this.patchCount.X = 1}
+    if(this.patchCount.Y === 0){ this.patchCount.Y = 1}
   },
 
   setPatchworkDimensions: function(){
@@ -65,6 +79,7 @@ var Patchwork = {
     return '<div id="patch'+ patchNum +
       '" class="patch" style="width:'+ this.patchSize.X +
       'px; height:'+ this.patchSize.Y +
-      'px; display:inline-block;"><span class="white-space-remover" style="font-size:0px;visibility:hidden">.</span></div>'
+      'px; display:inline-block;"><span class="white-space-remover"' +
+      'style="font-size:0px;visibility:hidden">.</span></div>'
   }
 }
