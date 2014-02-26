@@ -54,6 +54,7 @@ var Patchwork = {
     this.checkPatchCountAgainstStyleSets()
     this.patchSize.X      = this.dimensions.X / this.patchCount.X
     this.patchSize.Y      = this.dimensions.Y / this.patchCount.Y
+    this.checkHeightForDecimalPixels()
     this.patchCount.total = this.patchCount.X * this.patchCount.Y
   },
 
@@ -65,6 +66,33 @@ var Patchwork = {
   checkPatchCountAgainstStyleSets: function(){
     var styleSets = this.$patchwork.data().styleSets
     if(this.patchCount.X % styleSets == 0 ){ this.patchCount.X += 1; this.patchCount.Y += 1 }
+  },
+
+  checkHeightForDecimalPixels: function(){
+    if(this.patchSize.Y != parseInt(this.patchSize.Y)){
+      var nearestInt = this.findNearestInt(this.dimensions.Y, this.patchCount.Y)
+      if(nearestInt != 0){ this.setHeightByNearestInt(nearestInt)
+      } else {
+        this.setHeightByRoundUp()
+      }
+    }
+  },
+
+  findNearestInt: function(num, div){
+    for(var i = 0; i < div / 2; i++){
+      if(num % (div - i) == 0){return div - i}
+      if(num % (div + i) == 0){return div + i}
+    }
+    return 0
+  },
+
+  setHeightByNearestInt: function(nearestInt){
+    this.patchCount.Y = nearestInt
+    this.patchSize.Y  = this.dimensions.Y / this.patchCount.Y
+  },
+
+  setHeightByRoundUp: function(){
+    this.patchSize.Y = Math.ceil(this.patchSize.Y)
   },
 
   setPatchworkDimensions: function(){

@@ -51,15 +51,17 @@ All files are kept in the ```examples``` directory within this project. Refer to
 
 [Nested Patchwork](http://tgolson.com/patchwork/examples/nested_patchwork.html) - An example of placing Patchwork into a container to limit it's size.
 
-[Patch Size](http://tgolson.com/patchwork/examples/patch_size.html) - An example of setting the target patch size properties for the patchwork. NOTE: This example has a white border at the bottom in Chrome - possible bug fix needed.
+[Patch Size](http://tgolson.com/patchwork/examples/patch_size.html) - An example of setting the target patch size properties for the patchwork.
 
-[Outlines](http://tgolson.com/patchwork/examples/outline.html) - An example of using the CSS ```outline``` property to add styling. NOTE: This example has a white border at the bottom in Chrome - possible bug fix needed.
+[Outlines](http://tgolson.com/patchwork/examples/outline.html) - An example of using the CSS ```outline``` property to add styling.
 
 ## Patchwork is smart
 
 Patchwork is useful because it takes a lot of worry out of the developer's hands. First, it looks for the ```div``` element with ```id='patchwork'```, then it assesses the parent element to see if it's being put into a wrapper. Then it looks at the desired patch sizes, and runs a calculation based on the current screen size to come up with patch sizes that will fill the entire screen with no remainder, while staying close to the desired size.
 
-Oh ya, and it refreshes the calculations on screen resize. So what was once a 6 x 3 grid may change to a 3 x 3 grid if the browser if scaled or zoomed.
+When finding ideal pixel sizes, Patchwork also does you another solid and handles decimal pixels with ease. Each browser renders decimal pixels differently, so to avoid this problem Patchwork checks for any close factors to the desired patch layout that would result in an integer pixel size. If non exists (most likely the window height is a prime number), then the patch sizes are rounded up.
+
+It also refreshes the calculations on screen resize. So what was once a 6 x 3 grid may change to a 3 x 3 grid if the browser if scaled or zoomed.
 
 **Parent Elements**
 
@@ -118,6 +120,7 @@ An voila, the unwanted alignment transforms into a nice pattern:
 
 ![Alignment](./img/align2.png)
 
+Note, this data attribute is optional. If you are using all unique elements, like a collection of pictures, you can omit this step.
 
 ## Important things to know
 
@@ -129,7 +132,9 @@ An voila, the unwanted alignment transforms into a nice pattern:
 
 * ```<!DOCTYPE html>``` needs to be declared or patch sizing refresh might be off.
 
-* Using the CSS ```border``` property adds to the width of elements and will break the patch structure. Use ```outline``` instead - like [this](http://tgolson.com/patchwork/examples/outline.html)
+* Using the CSS ```border``` property adds to the width of elements and will break the patch structure. Use ```outline``` instead - like [this](http://tgolson.com/patchwork/examples/outline.html).
+
+* Not all browsers render decimal pixels the same way. Because of this, sometimes it is necessary to round patch dimensions up. Because of this, there will at times be a few pixels of Patchwork cut off at the bottom of the screen.
 
 ## Todo / Known Issues
 
