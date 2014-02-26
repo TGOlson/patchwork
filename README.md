@@ -2,6 +2,9 @@
 
 A JavaScript library for creating a dynamic and responsive media grid in the browser. [Visit the site](http://tgolson.com/patchwork/) for a sample.
 
+![Patchwork](./img/sample.png)
+
+
 ## What's that mean?
 
 Standard responsive grids are great for lots of things, but what if you want to cover an entire area in a grid? What if that grid needs to hold its form as the viewport size changes? Most responsive grids will elongate elements, but in a media layout more elements may need to be added. That's where Patchwork comes in.
