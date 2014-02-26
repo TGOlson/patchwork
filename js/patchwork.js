@@ -26,7 +26,6 @@ var Patchwork = {
   },
 
   init: function(){
-     console.log('moved')
     this.$patchwork = $('#patchwork')
     this.setParent()
     this.checkForTargetSizeData()
@@ -52,6 +51,7 @@ var Patchwork = {
     this.patchCount.X     = Math.floor(this.dimensions.X / this.targetPatchSize.X)
     this.patchCount.Y     = Math.floor(this.dimensions.Y / this.targetPatchSize.Y)
     this.checkIfPatchCountIsZero()
+    this.checkPatchCountAgainstStyleSets()
     this.patchSize.X      = this.dimensions.X / this.patchCount.X
     this.patchSize.Y      = this.dimensions.Y / this.patchCount.Y
     this.patchCount.total = this.patchCount.X * this.patchCount.Y
@@ -60,6 +60,11 @@ var Patchwork = {
   checkIfPatchCountIsZero: function(){
     if(this.patchCount.X === 0){ this.patchCount.X = 1}
     if(this.patchCount.Y === 0){ this.patchCount.Y = 1}
+  },
+
+  checkPatchCountAgainstStyleSets: function(){
+    var styleSets = this.$patchwork.data().styleSets
+    if(this.patchCount.X % styleSets == 0 ){ this.patchCount.X += 1; this.patchCount.Y += 1 }
   },
 
   setPatchworkDimensions: function(){

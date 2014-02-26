@@ -102,6 +102,23 @@ Or, setting via data-attributes:
 <div id='patchwork' data-target-size-x='100' data-target-size-y='100'></div>
 ```
 
+**Set number of patch style for smart rendering**
+
+If you've played around with the Patchwork a little you might notice that sometimes similar patches can become aligned and look like columns, like this:
+
+![Alignment](./img/align1.png)
+
+Luckily, Patchwork don't play that. Simply pass in the number of styles you plan on using via the ```data-style-sets``` attribute, like so:
+
+```html
+  <div id='patchwork' data-style-sets="4"></div>
+```
+
+An voila, the not wanted aligned columns transforms into a nice pattern:
+
+![Alignment](./img/align1.png)
+
+
 ## Important things to know
 
 * Because of the [white space added](http://davidwalsh.name/remove-whitespace-inline-block) by the ```inline-block``` styling, each patch receives a small text character (a period), which is set to a ```font-size``` of zero and made invisible.
