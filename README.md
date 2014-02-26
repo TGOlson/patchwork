@@ -102,7 +102,7 @@ Or, setting via data-attributes:
 <div id='patchwork' data-target-size-x='100' data-target-size-y='100'></div>
 ```
 
-**Set number of patch style for smart rendering**
+**Set the number of unique patch styles for smart rendering**
 
 If you've played around with the Patchwork a little you might notice that sometimes similar patches can become aligned and look like columns, like this:
 
