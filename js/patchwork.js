@@ -72,12 +72,8 @@ var Patchwork = {
   checkHeightForDecimalPixels: function(){
     if(this.patchSize.Y != parseInt(this.patchSize.Y)){
       var nearestInt = this.findNearestInt(this.dimensions.Y, this.patchCount.Y)
-      if(nearestInt != 0){
-        console.log('using nearestInt')
-        this.setHeightByNearestInt(nearestInt)
-      } else {
-        this.setHeightByRoundUp()
-      }
+      if(nearestInt != 0){ this.setSizeByNearestInt('Y', nearestInt)
+      } else { this.setSizeByRoundUp('Y') }
     }
   },
 
@@ -89,18 +85,19 @@ var Patchwork = {
     return 0
   },
 
-  setHeightByNearestInt: function(nearestInt){
-    this.patchCount.Y = nearestInt
-    this.patchSize.Y  = this.dimensions.Y / this.patchCount.Y
+  setSizeByNearestInt: function(loc, nearestInt){
+    this.patchCount[loc] = nearestInt
+    this.patchSize[loc]  = this.dimensions[loc] / this.patchCount[loc]
   },
 
-  setHeightByRoundUp: function(){
-    this.patchSize.Y = Math.ceil(this.patchSize.Y)
+  setSizeByRoundUp: function(loc){
+    this.patchSize[loc] = Math.ceil(this.patchSize[loc])
   },
 
   setPatchworkDimensions: function(){
-    this.$patchwork.width(this.dimensions.X)
-    this.$patchwork.height(this.dimensions.Y)
+    // round up patchSize.X for overflow-x
+    this.$patchwork.width( Math.ceil(this.patchSize.X) * this.patchCount.X)
+    this.$patchwork.height(this.patchSize.Y * this.patchCount.Y)
   },
 
   choosePatchFunction: function(prevPatchCount){

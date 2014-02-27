@@ -14,17 +14,14 @@
     .patch:nth-child(7n+2){
       background: url('../img/sf4.jpg');
       background-size: cover;
-      /*background: #543729;*/
     }
     .patch:nth-child(7n+3){
       background: url('./../img/sf1.jpg');
       background-size: cover;
-      /*background: #2baf2b;*/
     }
     .patch:nth-child(7n+4){
       background-image: url('../img/sf5.jpg');
       background-size: cover;
-      /*background: #ef5734;*/
     }
     .patch:nth-child(7n+5){
       background-image: url('../img/sf6.jpg');
@@ -47,7 +44,7 @@
   <script>
     window.onload = function(){
       $('body').on('click', '.patch', function(){
-        console.log($(this).css('background-image')) //.css('background'))
+        console.log($(this).css('background-image'))
       })
     }
   </script>
