@@ -55,7 +55,7 @@ All files are kept in the ```examples``` directory within this project. Refer to
 
 [Outlines](http://tgolson.com/patchwork/examples/outline.html) - An example of using the CSS ```outline``` property to add styling.
 
-[Pictures](http://tgolson.com/patchwork/examples/pictures.html) - An example of using pictures for backgrounds to create a dynamic collage of images.
+[Pictures](http://tgolson.com/patchwork/examples/pictures.html) - An example of using pictures for backgrounds to create a dynamic collage of images. Note: to prevent rendering too large of images, it is suggested to scale down image sizes to roughly 1.5x the target patch size. For example, if the target patch size is a square 200px, pictures should be roughly 300px x 300px.
 
 ## Patchwork is smart
 
