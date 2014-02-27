@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Picture Example</title>
+  <style type="text/css">
+    body{
+      padding: 0px;
+      margin: 0px;
+    }
+    .patch:nth-child(7n+1){
+      background: url('../img/sf2.jpg');
+      background-size: cover;
+    }
+    .patch:nth-child(7n+2){
+      background: url('../img/sf4.jpg');
+      background-size: cover;
+      /*background: #543729;*/
+    }
+    .patch:nth-child(7n+3){
+      background: url('./../img/sf1.jpg');
+      background-size: cover;
+      /*background: #2baf2b;*/
+    }
+    .patch:nth-child(7n+4){
+      background-image: url('../img/sf5.jpg');
+      background-size: cover;
+      /*background: #ef5734;*/
+    }
+    .patch:nth-child(7n+5){
+      background-image: url('../img/sf6.jpg');
+      background-size: cover;
+    }
+    .patch:nth-child(7n+6){
+      background-image: url('../img/sf8.jpg');
+      background-size: cover;
+    }
+    .patch:nth-child(7n+7){
+      background-image: url('../img/sf7.jpg');
+      background-size: cover;
+    }
+    .patch:hover{
+      opacity: 0.8;
+    }
+  </style>
+
+
+  <script>
+    window.onload = function(){
+      $('body').on('click', '.patch', function(){
+        console.log($(this).css('background-image')) //.css('background'))
+      })
+    }
+  </script>
+
+</head>
+<body>
+
+  <div id='patchwork' data-target-size-x="150" data-target-size-y="150" data-style-sets="7"></div>
+
+  <script src='../js/libs/jquery-1.11.0.js'></script>
+  <script src='../js/patchwork.js'></script>
+</body>
+</html>

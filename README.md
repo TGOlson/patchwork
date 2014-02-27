@@ -55,6 +55,8 @@ All files are kept in the ```examples``` directory within this project. Refer to
 
 [Outlines](http://tgolson.com/patchwork/examples/outline.html) - An example of using the CSS ```outline``` property to add styling.
 
+[Pictures](http://tgolson.com/patchwork/examples/pictures.html) - An example of using pictures for backgrounds to create a dynamic collage of images.
+
 ## Patchwork is smart
 
 Patchwork is useful because it takes a lot of worry out of the developer's hands. First, it looks for the ```div``` element with ```id='patchwork'```, then it assesses the parent element to see if it's being put into a wrapper. Then it looks at the desired patch sizes, and runs a calculation based on the current screen size to come up with patch sizes that will fill the entire screen with no remainder, while staying close to the desired size.

@@ -1,9 +1,3 @@
-$(function(){
-  Patchwork.init()
-  var self = Patchwork;
-  $(window).resize( Patchwork.init.bind(self) );
-})
-
 var Patchwork = {
   $patchwork: null,
   $parent:    null,
@@ -29,9 +23,9 @@ var Patchwork = {
     this.$patchwork = $('#patchwork')
     this.setParent()
     this.checkForTargetSizeData()
-    this.calculateProperties()
-    this.setPatchworkDimensions()
-    this.insertPatches()
+    this.runSizingFunctions()
+    var self = this;
+    $(window).resize( Patchwork.runSizingFunctions.bind(self) );
   },
 
   setParent: function(){
@@ -43,6 +37,13 @@ var Patchwork = {
   checkForTargetSizeData: function(){
     this.targetPatchSize.X = this.$patchwork.data().targetSizeX || this.targetPatchSize.X
     this.targetPatchSize.Y = this.$patchwork.data().targetSizeY || this.targetPatchSize.Y
+  },
+
+  runSizingFunctions: function(){
+    var prevPatchCount = this.patchCount.total
+    this.calculateProperties()
+    this.setPatchworkDimensions()
+    this.choosePatchFunction(prevPatchCount)
   },
 
   calculateProperties: function(){
@@ -75,7 +76,6 @@ var Patchwork = {
         console.log('using nearestInt')
         this.setHeightByNearestInt(nearestInt)
       } else {
-        console.log('using roundup')
         this.setHeightByRoundUp()
       }
     }
@@ -103,6 +103,20 @@ var Patchwork = {
     this.$patchwork.height(this.dimensions.Y)
   },
 
+  choosePatchFunction: function(prevPatchCount){
+    if(prevPatchCount == this.patchCount.total){
+      this.updatePatchSizes()
+    } else {
+      this.insertPatches()
+    }
+  },
+
+  updatePatchSizes: function(){
+    var $patches = $('.patch')
+    $patches.width(this.patchSize.X)
+    $patches.height(this.patchSize.Y)
+  },
+
   insertPatches: function(){
     this.$patchwork.empty()
     for(var i = 0; i < this.patchCount.total; i++){
@@ -119,3 +133,7 @@ var Patchwork = {
       'style="font-size:0px;visibility:hidden">.</span></div>'
   }
 }
+
+$(function(){
+  Patchwork.init()
+})
