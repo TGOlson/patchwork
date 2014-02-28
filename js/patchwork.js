@@ -13,6 +13,7 @@
 
   var $patchwork;
   var $parent;
+  var $patches;
   var attrs =  {};
 
 
@@ -148,7 +149,7 @@
    */
   function choosePatchFunction ( prevPatchCount ) {
 
-    if ( prevPatchCount == attrs.patchCountTotal && $('.patch')[0] !== undefined ) {
+    if ( prevPatchCount == attrs.patchCountTotal && $patches !== undefined ) {
       updatePatchSizes();
     } else {
       insertPatches();
@@ -160,8 +161,6 @@
    * Update existing patch sizes
    */
   function updatePatchSizes () {
-    var $patches = $('.patch');
-
     $patches.width(attrs.patchSizeX);
     $patches.height(attrs.patchSizeY);
   }
@@ -171,12 +170,15 @@
    * Clear all patches and re-render
    */
   function insertPatches () {
+
     destroy();
 
     for( var i = 0; i < attrs.patchCountTotal; i++ ) {
       var newPatch = createPatch( i );
       $patchwork.append( newPatch );
     }
+
+    $patches = $('.patch')
   }
 
 
