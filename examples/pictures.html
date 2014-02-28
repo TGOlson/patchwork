@@ -7,52 +7,93 @@
       padding: 0px;
       margin: 0px;
     }
-    .patch:nth-child(7n+1){
-      background: url('../img/sf2.jpg');
-      background-size: cover;
+    .patch{
+      background-size: cover !important;
     }
-    .patch:nth-child(7n+2){
-      background: url('../img/sf4.jpg');
-      background-size: cover;
+    .patch:nth-child(8n+1){
+      background: url('../img/sf-orange-1-thumb.jpg');
     }
-    .patch:nth-child(7n+3){
-      background: url('./../img/sf1.jpg');
-      background-size: cover;
+    .patch:nth-child(8n+2){
+      background: url('../img/sf-purp-1-thumb.jpg');
     }
-    .patch:nth-child(7n+4){
-      background-image: url('../img/sf5.jpg');
-      background-size: cover;
+    .patch:nth-child(8n+3){
+      background: url('../img/sf-orange-2-thumb.jpg');
     }
-    .patch:nth-child(7n+5){
-      background-image: url('../img/sf6.jpg');
-      background-size: cover;
+    .patch:nth-child(8n+4){
+      background: url('../img/sf-purp-2-thumb.jpg');
     }
-    .patch:nth-child(7n+6){
-      background-image: url('../img/sf8.jpg');
-      background-size: cover;
+    .patch:nth-child(8n+5){
+      background: url('../img/sf-orange-3-thumb.jpg');
     }
-    .patch:nth-child(7n+7){
-      background-image: url('../img/sf7.jpg');
-      background-size: cover;
+    .patch:nth-child(8n+6){
+      background: url('../img/sf-purp-3-thumb.jpg');
+    }
+    .patch:nth-child(8n+7){
+      background: url('../img/sf-orange-4-thumb.jpg');
+    }
+    .patch:nth-child(8n+8){
+      background: url('../img/sf-purp-4-thumb.jpg');
     }
     .patch:hover{
       opacity: 0.8;
     }
+    #overlay {
+      visibility: hidden;
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      width:100%;
+      height:100%;
+      text-align:center;
+      z-index: 1000;
+    }
+    .modal{
+      vertical-align: center;
+      background-color: #fff;
+      display: inline-block;
+      margin: 100px auto;
+      border: 20px solid #fff;
+    }
+    .modal img{
+      display: block;
+    }
   </style>
-
 
   <script>
     window.onload = function(){
       $('body').on('click', '.patch', function(){
-        console.log($(this).css('background-image'))
+        var modal = makeModal(this)
+
+        $('#overlay').css('visibility', 'visible').append(modal)
       })
+
+      $('body').on('click', '#overlay', function(){
+        $('.modal').remove()
+        $('#overlay').css('visibility', 'hidden')
+      })
+
+      function makeModal(self){
+
+        var modal = $('<div class="modal">')
+
+        var imageLocation = $(self).css("background-image")
+          .replace('url(', '')
+          .replace('-thumb', '')
+          .replace(')', '')
+
+        var image = $('<img>')
+          .attr('src', imageLocation)
+
+        return modal.html(image)
+      }
     }
   </script>
 
 </head>
 <body>
 
-  <div id='patchwork' data-target-size-x="150" data-target-size-y="150" data-style-sets="7"></div>
+  <div id='patchwork' data-target-size-x="100" data-target-size-y="100" data-style-sets="8"></div>
+  <div id='overlay'></div>
 
   <script src='../js/libs/jquery-1.11.0.js'></script>
   <script src='../js/patchwork.js'></script>
