@@ -43,6 +43,28 @@ And boom - Patchwork. Depending on your settings, you might get something like t
 </div>
 ```
 
+Patchwork also provides a few helper functions:
+
+```Patchwork.init()``` Initializes the entire patchwork from scratch. This is done automatically each time Patchwork loads.
+
+```Patchwork.get(property)``` Gets a property from the Patchwork attributes object. If no ```property``` is defined, all the attributes are returned. Available properties are:
+
+* ```patchCountTotal```
+* ```patchCountX```
+* ```patchCountY```
+* ```patchSizeX```
+* ```patchSizeY```
+* ```patchworkX```
+* ```patchworkY```
+* ```targetPatchSizeX```
+* ```targetPatchSizeY```
+
+Note: currently there is no ```set``` method. But it's being worked on.
+
+```Patchwork.refresh()``` Refreshes the patchwork based on the current attributes and screen size. This is automatically called each time the window is resized. ```refresh``` may be helpful to manually call when resizes parent elements.
+
+```Patchwork.destroy()``` Empties the entire patchwork element.
+
 ## Examples
 
 All files are kept in the ```examples``` directory within this project. Refer to them for additional tips on syntax and styling.

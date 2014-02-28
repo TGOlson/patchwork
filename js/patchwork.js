@@ -1,136 +1,182 @@
-var Patchwork = {
-  $patchwork: null,
-  $parent:    null,
-  dimensions: {
-    X: null,
-    Y: null
-  },
-  patchSize:  {
-    X: null,
-    Y: null
-  },
-  patchCount: {
-    X: null,
-    Y: null,
-    total: null
-  },
-  targetPatchSize: {
-    X: 100,
-    Y: 100
-  },
+(function (global, factory)  {
 
-  init: function(){
-    this.$patchwork = $('#patchwork')
-    this.setParent()
-    this.checkForTargetSizeData()
-    this.runSizingFunctions()
-    var self = this;
-    $(window).resize( Patchwork.runSizingFunctions.bind(self) );
-  },
+  global.Patchwork = factory(global);
 
-  setParent: function(){
-    this.$parent = this.$patchwork.parent()
-    this.$parent.css('overflow', 'hidden')
-    if( this.$parent.html() == $('body').html() ){ this.$parent = $(window) }
-  },
+}( this, function() {
 
-  checkForTargetSizeData: function(){
-    this.targetPatchSize.X = this.$patchwork.data().targetSizeX || this.targetPatchSize.X
-    this.targetPatchSize.Y = this.$patchwork.data().targetSizeY || this.targetPatchSize.Y
-  },
+  var $patchwork;
 
-  runSizingFunctions: function(){
-    var prevPatchCount = this.patchCount.total
-    this.calculateProperties()
-    this.setPatchworkDimensions()
-    this.choosePatchFunction(prevPatchCount)
-  },
+  var $parent;
 
-  calculateProperties: function(){
-    this.dimensions.X     = this.$parent.width()
-    this.dimensions.Y     = this.$parent.height()
-    this.patchCount.X     = Math.floor(this.dimensions.X / this.targetPatchSize.X)
-    this.patchCount.Y     = Math.floor(this.dimensions.Y / this.targetPatchSize.Y)
-    this.checkIfPatchCountIsZero()
-    this.checkPatchCountAgainstStyleSets()
-    this.patchSize.X      = this.dimensions.X / this.patchCount.X
-    this.patchSize.Y      = this.dimensions.Y / this.patchCount.Y
-    this.checkHeightForDecimalPixels()
-    this.patchCount.total = this.patchCount.X * this.patchCount.Y
-  },
+  var attrs =  {};
 
-  checkIfPatchCountIsZero: function(){
-    if(this.patchCount.X === 0){ this.patchCount.X = 1}
-    if(this.patchCount.Y === 0){ this.patchCount.Y = 1}
-  },
-
-  checkPatchCountAgainstStyleSets: function(){
-    var styleSets = this.$patchwork.data().styleSets
-    if(this.patchCount.X % styleSets == 0 ){ this.patchCount.X += 1; this.patchCount.Y += 1 }
-  },
-
-  checkHeightForDecimalPixels: function(){
-    if(this.patchSize.Y != parseInt(this.patchSize.Y)){
-      var nearestInt = this.findNearestInt(this.dimensions.Y, this.patchCount.Y)
-      if(nearestInt != 0){ this.setSizeByNearestInt('Y', nearestInt)
-      } else { this.setSizeByRoundUp('Y') }
-    }
-  },
-
-  findNearestInt: function(num, div){
-    for(var i = 0; i < div * 0.2; i++){
-      if(num % (div - i) == 0){return div - i}
-      if(num % (div + i) == 0){return div + i}
-    }
-    return 0
-  },
-
-  setSizeByNearestInt: function(loc, nearestInt){
-    this.patchCount[loc] = nearestInt
-    this.patchSize[loc]  = this.dimensions[loc] / this.patchCount[loc]
-  },
-
-  setSizeByRoundUp: function(loc){
-    this.patchSize[loc] = Math.ceil(this.patchSize[loc])
-  },
-
-  setPatchworkDimensions: function(){
-    // round up patchSize.X for overflow-x
-    this.$patchwork.width( Math.ceil(this.patchSize.X) * this.patchCount.X)
-    this.$patchwork.height(this.patchSize.Y * this.patchCount.Y)
-  },
-
-  choosePatchFunction: function(prevPatchCount){
-    if(prevPatchCount == this.patchCount.total){
-      this.updatePatchSizes()
-    } else {
-      this.insertPatches()
-    }
-  },
-
-  updatePatchSizes: function(){
-    var $patches = $('.patch')
-    $patches.width(this.patchSize.X)
-    $patches.height(this.patchSize.Y)
-  },
-
-  insertPatches: function(){
-    this.$patchwork.empty()
-    for(var i = 0; i < this.patchCount.total; i++){
-      var newPatch = this.createPatch(i)
-      this.$patchwork.append(newPatch)
-    }
-  },
-
-  createPatch: function(patchNum){
-    return '<div id="patch'+ patchNum +
-      '" class="patch" style="width:'+ this.patchSize.X +
-      'px; height:'+ this.patchSize.Y +
-      'px; display:inline-block;"><span class="white-space-remover"' +
-      'style="font-size:0px;visibility:hidden">.</span></div>'
+  function init() {
+    definePatchwork();
+    setParent();
+    checkForTargetSizeData();
+    runSizingFunctions();
+    $(window).resize( refresh );
   }
-}
 
-$(function(){
+  function definePatchwork() {
+    $patchwork = $('#patchwork');
+    $patchwork.css('text-align', 'left');
+  }
+
+  function setParent() {
+    $parent = $patchwork.parent();
+    $parent.css('overflow', 'hidden');
+
+    if( $parent.html() == $('body').html() ) {
+      $parent = $(window);
+    }
+
+  }
+
+  function checkForTargetSizeData() {
+    attrs.targetPatchSizeY = $patchwork.data().targetSizeX || 100;
+    attrs.targetPatchSizeX = $patchwork.data().targetSizeY || 100;
+  }
+
+  function runSizingFunctions() {
+    var prevPatchCount = attrs.patchCountTotal;
+
+    setAttrs();
+    setPatchworkDimensions();
+    choosePatchFunction( prevPatchCount );
+  }
+
+  function setAttrs() {
+
+    attrs.patchworkX = $parent.width();
+    attrs.patchworkY = $parent.height();
+
+    attrs.patchCountX = Math.floor( attrs.patchworkX  / attrs.targetPatchSizeX );
+    attrs.patchCountY = Math.floor( attrs.patchworkY / attrs.targetPatchSizeY );
+
+    attrs.patchCountX === 0 ? this.patchCountX = 1 : null;
+    attrs.patchCountY === 0 ? this.patchCountY = 1 : null;
+
+    var styleSets = $patchwork.data().styleSets;
+
+    if( attrs.patchCountX % styleSets === 0 ) {
+      attrs.patchCountX += 1;
+      attrs.patchCountY += 1;
+    }
+
+    attrs.patchSizeX  = attrs.patchworkX / attrs.patchCountX;
+    attrs.patchSizeY = attrs.patchworkY  / attrs.patchCountY;
+
+    if( this.patchSizeY % 1 !== 0 ) {
+      var nearestInt = (function(num, div) {
+
+        for(var i = 0; i < div * 0.2; i++) {
+
+          if(num % (div - i) == 0) {
+            return div - i;
+          }
+
+          if(num % (div + i) == 0) {
+            return div + i;
+          }
+        }
+
+        return 0
+      }(attrs.patchworkY, attrs.patchCountY));
+    }
+
+    if(nearestInt != 0) {
+      attrs.patchCountY = nearestInt;
+      attrs.patchSizeY  = attrs.patchworkY / attrs.patchCountY;
+    } else  {
+      attrs.patchSizeY = Math.ceil(attrs.patchSizeY );
+    }
+
+    attrs.patchCountTotal = attrs.patchCountX * attrs.patchCountY;
+  }
+
+  function setPatchworkDimensions() {
+    $patchwork.width( Math.ceil( attrs.patchSizeX ) * attrs.patchCountX );
+    $patchwork.height( attrs.patchSizeY * attrs.patchCountY );
+  }
+
+  function choosePatchFunction( prevPatchCount ) {
+
+    if( prevPatchCount == attrs.patchCountTotal ) {
+      updatePatchSizes();
+    } else  {
+      insertPatches();
+    }
+  }
+
+  function updatePatchSizes() {
+    var $patches = $('.patch');
+
+    $patches.width(attrs.patchSizeX);
+    $patches.height(attrs.patchSizeY);
+  }
+
+  function insertPatches() {
+    destroy();
+
+    for( var i = 0; i < attrs.patchCountTotal; i++ ) {
+      var newPatch = createPatch( i );
+      $patchwork.append( newPatch );
+    }
+  }
+
+  function createPatch( patchNum ) {
+    var newPatch = $('<div id="patch'+ patchNum + '" class="patch">')
+      .css('width', attrs.patchSizeX)
+      .css('height', attrs.patchSizeY)
+      .css('display', 'inline-block')
+
+    var span = $('<span class="white-space-remover">')
+      .css('visibility', 'hidden')
+      .css('font-size', '0px')
+      .html('.')
+
+    return newPatch.html(span)
+  }
+
+
+  // function set(property, newValue) {
+
+  //   if (attrs[property] === undefined) {
+  //     throw 'Unknown property - ' + property;
+  //   } else if (newValue === undefined) {
+  //     throw 'Missing value for ' + property;
+  //   }
+
+  //   attrs[property] = newValue;
+  //   refresh();
+  // }
+
+  function get(property) {
+
+    if (attrs[property] === undefined) {
+      return attrs;
+    } else {
+      return attrs[property]
+    }
+  }
+
+  function refresh() {
+    runSizingFunctions()
+  }
+
+  function destroy() {
+    $patchwork.empty();
+  }
+
+  return  {
+    init: init,
+    get: get,
+    refresh: refresh,
+    destroy: destroy
+  }
+}))
+
+$(function() {
   Patchwork.init()
 })
