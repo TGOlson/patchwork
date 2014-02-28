@@ -48,8 +48,6 @@
       z-index: 1000;
     }
     .modal{
-      vertical-align: center;
-      background-color: #fff;
       display: inline-block;
       margin: 100px auto;
       border: 20px solid #fff;
@@ -61,28 +59,29 @@
 
   <script>
     window.onload = function(){
-      $('body').on('click', '.patch', function(){
+      $('body').on('click', '.patch', displayModal)
+      $('body').on('click', '#overlay', removeModal)
+
+      function displayModal(){
         var modal = makeModal(this)
-
         $('#overlay').css('visibility', 'visible').append(modal)
-      })
+      }
 
-      $('body').on('click', '#overlay', function(){
+      function removeModal(){
         $('.modal').remove()
-        $('#overlay').css('visibility', 'hidden')
-      })
+        $(this).css('visibility', 'hidden')
+      }
 
       function makeModal(self){
 
         var modal = $('<div class="modal">')
 
-        var imageLocation = $(self).css("background-image")
-          .replace('url(', '')
-          .replace('-thumb', '')
-          .replace(')', '')
+        var url = $(self).css("background-image")
+          .replace(/^url\(["']?/, '')
+          .replace(/["']?\)$/, '')
+          .replace('-thumb', '');
 
-        var image = $('<img>')
-          .attr('src', imageLocation)
+        var image = $('<img>').attr('src', url)
 
         return modal.html(image)
       }
