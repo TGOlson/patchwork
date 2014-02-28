@@ -102,7 +102,8 @@
 
   function choosePatchFunction( prevPatchCount ) {
 
-    if ( prevPatchCount == attrs.patchCountTotal ) {
+    if ( prevPatchCount == attrs.patchCountTotal && $('.patch')[0] !== undefined ) {
+      console.log('updating patch sizes')
       updatePatchSizes();
     } else {
       insertPatches();

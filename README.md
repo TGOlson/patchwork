@@ -60,11 +60,11 @@ Patchwork also provides a few helper functions:
 * ```targetPatchSizeY```
 
 
-```Patchwork.set(property, value)``` Sets Patchwork properties based on the passed in value. Note, based on the dynamic nature of Patchwork, most values cannot be set. Currently only ```targetPatchSizeX``` and ```targetPatchSizeY``` can be set via this method. ```refresh``` is automatically called after ```set```. Note, because of the dynamic nature, not all ```targetPatchSize``` changes will be displayed (for example, increasing the value by 1px may not alter the patchwork structure.)
+```Patchwork.set(property, value)``` Sets Patchwork properties based on the passed in value. Currently only ```targetPatchSizeX``` and ```targetPatchSizeY``` can be set via this method. ```refresh``` is automatically called after ```set```. Note, because of the dynamic nature, not all ```targetPatchSize``` changes will be displayed (for example, increasing the value by 1px may not alter the patchwork structure).
 
-```Patchwork.refresh()``` Refreshes the patchwork based on the current attributes and screen size. This is automatically called each time the window is resized. ```refresh``` may be helpful to manually call when resizes parent elements.
+```Patchwork.refresh()``` Refreshes the patchwork based on the current attributes and screen size. This is automatically called each time the window is resized. ```refresh``` may be helpful to manually call when resizing parent elements.
 
-```Patchwork.destroy()``` Empties the entire patchwork element.
+```Patchwork.destroy()``` Empties the entire patchwork element. After running ```destroy```, either ```init``` or ```refresh``` can be called to bring back the patchwork.
 
 ## Examples
 
