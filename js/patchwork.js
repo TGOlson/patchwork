@@ -25,7 +25,7 @@
     defineParent();
     checkForTargetSizeData();
     runSizingFunctions();
-    $(window).resize( refresh );
+    setResizeListener()
   }
 
 
@@ -195,6 +195,33 @@
       .html('.');
 
     return newPatch.html(span);
+  }
+
+
+  /*
+   * Listen for screen resize
+   */
+  function setResizeListener () {
+    var runResize;
+
+    $(window).on('touchstart', function () {
+
+      clearTimeout(runResize);
+
+      // Only refresh after 25ms timeout
+      // This prevents many unnecessary refreshes while resizing
+      var runResize = setTimeout( refresh, 25 );
+
+    });
+
+    $(window).resize( function () {
+
+      clearTimeout(runResize);
+
+      // Only refresh after 25ms timeout
+      // This prevents many unnecessary refreshes while resizing
+      var runResize = setTimeout( refresh, 25 );
+    });
   }
 
 

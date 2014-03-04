@@ -27,17 +27,17 @@ Then add the ```patchwork``` id to a div.
 And boom - Patchwork. Depending on your settings, you might get something like this:
 
 ```html
-<div id="patchwork" style="width: 1301px; height: 411px;">
-  <div id="patch0" class="patch" style="width:216.83333333333334px; height:205.5px; display:inline-block;">
-    <span class="white-space-remover" style="font-size:0px;visibility:hidden">.</span>
+<div id="patchwork" data-style-sets="2" style="text-align: left; width: 461px; height: 656px;">
+  <div id="patch0" class="patch row0" style="width: 93px; height: 94px; display: inline-block;">
+    <span class="white-space-remover" style="visibility: hidden; font-size: 0px;">.</span>
   </div>
-  <div id="patch1" class="patch" style="width:216.83333333333334px; height:205.5px; display:inline-block;">
+  <div id="patch1" class="patch row0" style="width: 92px; height: 94px; display: inline-block;">
     ...
   </div>
 
-    ...
+  ...
 
-  <div id="patch11" class="patch" style="width:216.83333333333334px; height:205.5px; display:inline-block;">
+  <div id="patch34" class="patch row6" style="width: 92px; height: 93px; display: inline-block;">
     ...
   </div>
 </div>
@@ -73,7 +73,7 @@ All files are kept in the ```examples``` directory within this project. Refer to
 
 [Full Patchwork](http://tgolson.com/patchwork/examples/full_patchwork.html) - An example of using Patchwork's default settings to fill up an entire page with patches.
 
-[Nested Patchwork](http://tgolson.com/patchwork/examples/nested_patchwork.html) - An example of placing Patchwork into a container to limit it's size.
+[Nested Patchwork](http://tgolson.com/patchwork/examples/nested_patchwork.html) - An example of placing Patchwork into a container to limit its size.
 
 [Patch Size](http://tgolson.com/patchwork/examples/patch_size.html) - An example of setting the target patch size properties for the patchwork.
 
@@ -85,7 +85,7 @@ All files are kept in the ```examples``` directory within this project. Refer to
 
 Patchwork is useful because it takes a lot of worry out of the developer's hands. First, it looks for the ```div``` element with ```id='patchwork'```, then it assesses the parent element to see if it's being put into a wrapper. Then it looks at the desired patch sizes, and runs a calculation based on the current screen size to come up with patch sizes that will fill the entire screen with no remainder, while staying close to the desired size.
 
-When finding ideal pixel sizes, Patchwork also does you another solid and handles decimal pixels with ease. Each browser renders decimal pixels differently, so to avoid this problem Patchwork checks for any close factors to the desired patch layout that would result in an integer pixel size. If non exists (most likely the window height is a prime number), then the patch sizes are rounded up.
+When finding ideal pixel sizes, Patchwork also does you another solid and handles remainder pixels with ease. Each browser renders decimal pixels differently, so to avoid this problem Patchwork rounds patch sizes down to the nearest integer, and then evenly distributes the remainder pixels among the rows and columns.
 
 It also refreshes the calculations on screen resize. So what was once a 6 x 3 grid may change to a 3 x 3 grid if the browser if scaled or zoomed.
 
@@ -105,14 +105,14 @@ What if you don't place it into a wrapper ```div```? Then Patchwork will default
 
 ## Customization
 
-Currently Patchwork is designed to be quick and simple, so not too many customizations are built in. Hopefully the remainder of the work can be done in CSS or SASS. In the future, a suite of quick addons will be released under Patchwork Toolbox. That being said, here are a few ways to change the experience:
+Currently Patchwork is designed to be quick and simple, so not too many customizations are built in. Hopefully the remainder of the work can be done in CSS or SASS. In the future, a suite of quick add-ons will be released under 'Patchwork Toolbox'. That being said, here are a few ways to change the experience:
 
 **Change the target patch size**
 
 Patchwork scales based on a desired size for the patches. These can be set via data-attributes in the ```patchwork``` element. If no target size is set, the patches will default to 100px x 100px.
 
 ```html
-<div id='patchwork' data-target-size-x='100' data-target-size-y='100'></div>
+<div id='patchwork' data-target-size-x='200' data-target-size-y='200'></div>
 ```
 
 **Set the number of unique patch styles for smart rendering**
@@ -135,7 +135,7 @@ Note, this data attribute is optional. If you are using all unique elements, lik
 
 ## Important things to know
 
-* Because of the [white space added](http://davidwalsh.name/remove-whitespace-inline-block) by the ```inline-block``` styling, each patch receives a small text character (a period), which is set to a ```font-size``` of zero and made invisible.
+* Because of the [white space added](http://davidwalsh.name/remove-whitespace-inline-block) by ```inline-block``` styling, each patch receives a small text character (a period), which is set to a ```font-size``` of zero and made invisible.
 
 * ```overflow``` is automatically set to ```hidden``` on the parent element for spacing issues. If you want overflow, manually add it back in and test to see if there are spacing issues.
 
@@ -145,13 +145,12 @@ Note, this data attribute is optional. If you are using all unique elements, lik
 
 * Using the CSS ```border``` property adds to the width of elements and will break the patch structure. Use ```outline``` instead - like [this](http://tgolson.com/patchwork/examples/outline.html).
 
-* Not all browsers render decimal pixels the same way. Because of this, sometimes it is necessary to round patch dimensions up. Because of this, there will at times be a few pixels of Patchwork cut off at the bottom of the screen.
-
 ## Todo / Known Issues
 
 * Create more elaborate examples with SASS
 * Take in more data attribute args
 * Work on Patchwork Toolbox for quick, common styles
+* Does not work with mobile zooming (does correctly work with standard zoom).
 
 ## Contributing
 
