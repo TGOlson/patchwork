@@ -66,12 +66,9 @@
    * Start the process of shaping patches
    */
   function runSizingFunctions () {
-    // Store the previous patch count for later comparisons
-    var prevPatchCount = attrs.patchCountTotal;
-
     setAttrs();
     setPatchworkDimensions();
-    choosePatchFunction( prevPatchCount );
+    insertPatches();
   }
 
 
@@ -80,6 +77,7 @@
    */
   function setAttrs () {
 
+    // Set patchwork size to parent element size
     attrs.patchworkX = $parent.width();
     attrs.patchworkY = $parent.height();
 
@@ -93,42 +91,19 @@
 
     var styleSets = $patchwork.data().styleSets;
 
-    // Check if the number of stylesets is a factor of the horizontal row count
-    // If it is, the patches would align in an ugly way
+    // Check if the number of style sets is a factor of the horizontal row count
     if ( attrs.patchCountX % styleSets === 0 ) {
       attrs.patchCountX += 1;
       attrs.patchCountY += 1;
     }
 
-    attrs.patchSizeX = attrs.patchworkX / attrs.patchCountX;
-    attrs.patchSizeY = attrs.patchworkY / attrs.patchCountY;
+    // Set patch sizes
+    attrs.patchSizeX = Math.floor( attrs.patchworkX / attrs.patchCountX );
+    attrs.patchSizeY = Math.floor( attrs.patchworkY / attrs.patchCountY );
 
-    // Try to find a patchCount that is a factor of the total patchwork dimensions
-    if ( this.patchSizeY % 1 !== 0 ) {
-      var nearestInt = ( function ( num, div ) {
-
-        for ( var i = 0; i < div * 0.2; i++ ) {
-
-          if (num % (div - i) == 0) {
-            return div - i;
-          }
-
-          if (num % (div + i) == 0) {
-            return div + i;
-          }
-        }
-
-        return 0
-      })( attrs.patchworkY, attrs.patchCountY );
-    }
-
-    // If there was no no factor close to the original count, just round up
-    if (nearestInt != 0) {
-      attrs.patchCountY = nearestInt;
-      attrs.patchSizeY  = attrs.patchworkY / attrs.patchCountY;
-    } else  {
-      attrs.patchSizeY = Math.ceil( attrs.patchSizeY );
-    }
+    // Calculate remainder pixels
+    attrs.remainderX = attrs.patchworkX % attrs.patchCountX;
+    attrs.remainderY = attrs.patchworkY % attrs.patchCountY;
 
     attrs.patchCountTotal = attrs.patchCountX * attrs.patchCountY;
   }
@@ -138,31 +113,8 @@
    * Set the dimensions of the patchwork
    */
   function setPatchworkDimensions () {
-    $patchwork.width( Math.ceil( attrs.patchSizeX ) * attrs.patchCountX );
-    $patchwork.height( attrs.patchSizeY * attrs.patchCountY );
-  }
-
-
-  /*
-   * Decide which updating function will work
-   * Either update sizes, or re-render all patches
-   */
-  function choosePatchFunction ( prevPatchCount ) {
-
-    if ( prevPatchCount == attrs.patchCountTotal && $patches !== undefined ) {
-      updatePatchSizes();
-    } else {
-      insertPatches();
-    }
-  }
-
-
-  /*
-   * Update existing patch sizes
-   */
-  function updatePatchSizes () {
-    $patches.width(attrs.patchSizeX);
-    $patches.height(attrs.patchSizeY);
+    $patchwork.width( $parent.width() );
+    $patchwork.height( $parent.height() );
   }
 
 
@@ -173,24 +125,66 @@
 
     destroy();
 
-    for( var i = 0; i < attrs.patchCountTotal; i++ ) {
-      var newPatch = createPatch( i );
-      $patchwork.append( newPatch );
+    var eachRemainderY = Math.floor( attrs.patchCountY / attrs.remainderY )
+    var remainderYUsed = 0
+
+    for( var i = 0; i < attrs.patchCountY; i++ ) {
+
+      var extraY = 0
+
+      // Evenly distribute vertical remainder pixels among rows
+      if( i % eachRemainderY == 0 && remainderYUsed < attrs.remainderY ){
+        extraY = 1;
+        remainderYUsed += 1;
+      }
+
+      var newRow = createRow( i, extraY );
+
+      $patchwork.append( newRow );
+    }
+  }
+
+
+  /*
+   * Create rows of patches
+   */
+  function createRow( rowNum, extraY ){
+
+    var eachRemainderX = Math.floor( attrs.patchCountX / attrs.remainderX )
+    var remainderXUsed = 0
+    var rowPatches = []
+
+    for( var i = 0; i < attrs.patchCountX; i++ ) {
+
+      var extraX = 0
+
+      // Evenly distribute horizontal remainder pixels among columns
+      if( i % eachRemainderX == 0 && remainderXUsed  < attrs.remainderX ){
+        extraX = 1;
+        remainderXUsed += 1;
+      }
+
+      var newPatch = createPatch( rowNum, i, extraX, extraY );
+
+      rowPatches.push( newPatch )
     }
 
-    $patches = $('.patch')
+    return rowPatches
   }
 
 
   /*
    * Patch factory
    */
-  function createPatch ( patchNum ) {
+  function createPatch ( rowNum, patchNum, extraX, extraY ) {
+
+    var globalPatchNum = rowNum * attrs.patchCountX + patchNum
+
     var newPatch = $('<div>')
-      .attr('id', 'patch' + patchNum)
-      .attr('class', 'patch')
-      .css('width', attrs.patchSizeX)
-      .css('height', attrs.patchSizeY)
+      .attr('id', 'patch' + globalPatchNum )
+      .attr('class', 'patch row' + rowNum )
+      .css('width', attrs.patchSizeX + extraX )
+      .css('height', attrs.patchSizeY + extraY )
       .css('display', 'inline-block');
 
     // Add span with a text element to fix inline white-space

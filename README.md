@@ -56,9 +56,10 @@ Patchwork also provides a few helper functions:
 * ```patchSizeY```
 * ```patchworkX```
 * ```patchworkY```
+* ```remainderX```
+* ```remainderY```
 * ```targetPatchSizeX```
 * ```targetPatchSizeY```
-
 
 ```Patchwork.set(property, value)``` Sets Patchwork properties based on the passed in value. Currently only ```targetPatchSizeX``` and ```targetPatchSizeY``` can be set via this method. ```refresh``` is automatically called after ```set```. Note, because of the dynamic nature, not all ```targetPatchSize``` changes will be displayed (for example, increasing the value by 1px may not alter the patchwork structure).
 
@@ -108,22 +109,7 @@ Currently Patchwork is designed to be quick and simple, so not too many customiz
 
 **Change the target patch size**
 
-Patchwork scales based on a desired size for the patches. These can be set in the ```patchwork.js``` file, or via data-attributes, which are recommended if importing the JavaScript externally.
-
-Changing in the JavaScript file:
-
-```javascript
-var Patchwork = {
-  ...
-  targetPatchSize: {
-    X: 100,
-    Y: 100
-  },
-  ...
-}
-```
-
-Or, setting via data-attributes:
+Patchwork scales based on a desired size for the patches. These can be set via data-attributes in the ```patchwork``` element. If no target size is set, the patches will default to 100px x 100px.
 
 ```html
 <div id='patchwork' data-target-size-x='100' data-target-size-y='100'></div>
@@ -131,7 +117,7 @@ Or, setting via data-attributes:
 
 **Set the number of unique patch styles for smart rendering**
 
-If you've played around with the Patchwork a little you might notice that sometimes similar patches can become aligned and look like columns, like this:
+If you've played around with Patchwork a little you might notice that sometimes similar patches can become aligned and look like columns, like this:
 
 ![Alignment](./img/align1.png)
 
@@ -163,7 +149,6 @@ Note, this data attribute is optional. If you are using all unique elements, lik
 
 ## Todo / Known Issues
 
-* Chrome looks to add whitespace at the bottom of patchworks with smaller patches.
 * Create more elaborate examples with SASS
 * Take in more data attribute args
 * Work on Patchwork Toolbox for quick, common styles
