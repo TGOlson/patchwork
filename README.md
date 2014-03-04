@@ -87,7 +87,7 @@ Patchwork is useful because it takes a lot of worry out of the developer's hands
 
 When finding ideal pixel sizes, Patchwork also does you another solid and handles remainder pixels with ease. Each browser renders decimal pixels differently, so to avoid this problem Patchwork rounds patch sizes down to the nearest integer, and then evenly distributes the remainder pixels among the rows and columns.
 
-It also refreshes the calculations on screen resize. So what was once a 6 x 3 grid may change to a 3 x 3 grid if the browser if scaled or zoomed.
+It also refreshes the calculations on screen resize. So what was once a 6 x 3 grid may change to a 3 x 3 grid if the browser is resized.
 
 **Parent Elements**
 
@@ -150,7 +150,7 @@ Note, this data attribute is optional. If you are using all unique elements, lik
 * Create more elaborate examples with SASS
 * Take in more data attribute args
 * Work on Patchwork Toolbox for quick, common styles
-* Does not work with mobile zooming (does correctly work with standard zoom).
+* Does not work well with zooming (standard browsers partially, mobile not at all).
 
 ## Contributing
 
